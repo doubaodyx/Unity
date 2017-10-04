@@ -42,7 +42,7 @@ public class uScriptAct_FindChildTransform : uScriptLogic
 		m_Out = false;
 		m_True = false;
 		
-		Transform t = Target.transform.FindChild(Name);
+		Transform t = Target.transform.Find(Name);
 		
 		if ( t != null )
 		{

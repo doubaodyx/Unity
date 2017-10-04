@@ -120,7 +120,7 @@ public class uScriptAct_CaptureScreenshot : uScriptLogic
 		
 	  Path = Path + ".png";
 
-      Application.CaptureScreenshot(Path);
+      ScreenCapture.CaptureScreenshot(Path);
 	  
 	  FileSaved = Path;
 
