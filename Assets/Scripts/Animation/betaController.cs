@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lilyController : MonoBehaviour {
+public class betaController : MonoBehaviour {
 
 
 	static Animator anim;
@@ -34,7 +34,7 @@ public class lilyController : MonoBehaviour {
 			anim.SetBool ("isRunning", true);
 		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -97,7 +97,7 @@ public class lilyController : MonoBehaviour {
 			}
 			actorMovement ();
 		}
-			
+
 		//detect multiple click
 		if (Input.GetMouseButtonDown (0)) {
 			clickTimes = clickTimes + 1;

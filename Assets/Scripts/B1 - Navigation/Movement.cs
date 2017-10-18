@@ -63,6 +63,7 @@ public class Movement : MonoBehaviour {
 
     void OnMouseDown()
     {
+		print ("have click solider");
         if (!isSelected)
         {
             isSelected = true;
