@@ -106,7 +106,7 @@ public class betaController : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		print ("have click lily");
+		print ("have click beta");
 		if (!isSelected)
 		{
 			isSelected = true;

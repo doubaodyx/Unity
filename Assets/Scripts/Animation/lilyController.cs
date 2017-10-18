@@ -38,65 +38,68 @@ public class lilyController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (isSelected) {
+			if (Input.GetButtonDown ("Jump")) {
+				anim.SetTrigger ("isJumping");
+			}
+			//move forward
+			else if (Input.GetKeyDown(KeyCode.I)) {
+				if (speedLevel <= 0) {
+					speedLevel = speedLevel + 1;
+					anim.SetBool ("isWalking", true);
+					anim.SetBool ("isStanding", false);
+					anim.SetBool ("isRunning", false);
+				} else if (speedLevel >= 1) {
+					anim.SetBool ("isWalking", false);
+					anim.SetBool ("isStanding", false);
+					anim.SetBool ("isRunning", true);
+				} 
+			}
+			//move backward
+			else if (Input.GetKeyDown(KeyCode.K)) {
+				if (speedLevel <= 0) {
+					speedLevel = speedLevel + 1;
+					anim.SetBool ("isWalking", true);
+					anim.SetBool ("isStanding", false);
+					anim.SetBool ("isRunning", false);
+				} else if (speedLevel >= 1) {
+					anim.SetBool ("isWalking", false);
+					anim.SetBool ("isStanding", false);
+					anim.SetBool ("isRunning", true);
+				} 
+			} 
+			//turn left
+			else if (Input.GetKeyDown(KeyCode.J)) {
+				anim.SetTrigger ("isTurnLeft");
+			}
+			//turn right
+			else if (Input.GetKeyDown(KeyCode.L)) {
+				anim.SetTrigger ("isTurnRight");
+			}
+			//Change the speed
+			if (Input.GetKeyDown(KeyCode.UpArrow)) {
+				speedLevel = speedLevel + 1;
+				//catch the exception
+				if (speedLevel < 0) {
+					speedLevel = 0;
+				} else if (speedLevel > 3) {
+					speedLevel = 3; 
+				}
+				actorMovement ();
+			} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+				speedLevel = speedLevel - 1;
+				if (speedLevel < 0) {
+					speedLevel = 0;
+				} else if (speedLevel > 3) {
+					speedLevel = 3; 
+				}
+				actorMovement ();
+			}			
+		}
 		//float translation = Input.GetAxis ("Vertical") * runSpeed;
 		//float ratation = Input.GetAxis ("Horizontal") * rotationSpeed;
 		//Jump
-		if (Input.GetButtonDown ("Jump")) {
-			anim.SetTrigger ("isJumping");
-		}
-		//move forward
-		else if (Input.GetKeyDown(KeyCode.I)) {
-			if (speedLevel <= 0) {
-				speedLevel = speedLevel + 1;
-				anim.SetBool ("isWalking", true);
-				anim.SetBool ("isStanding", false);
-				anim.SetBool ("isRunning", false);
-			} else if (speedLevel >= 1) {
-				anim.SetBool ("isWalking", false);
-				anim.SetBool ("isStanding", false);
-				anim.SetBool ("isRunning", true);
-			} 
-		}
-		//move backward
-		else if (Input.GetKeyDown(KeyCode.K)) {
-			if (speedLevel <= 0) {
-				speedLevel = speedLevel + 1;
-				anim.SetBool ("isWalking", true);
-				anim.SetBool ("isStanding", false);
-				anim.SetBool ("isRunning", false);
-			} else if (speedLevel >= 1) {
-				anim.SetBool ("isWalking", false);
-				anim.SetBool ("isStanding", false);
-				anim.SetBool ("isRunning", true);
-			} 
-		} 
-		//turn left
-		else if (Input.GetKeyDown(KeyCode.J)) {
-			anim.SetTrigger ("isTurnLeft");
-		}
-		//turn right
-		else if (Input.GetKeyDown(KeyCode.L)) {
-			anim.SetTrigger ("isTurnRight");
-		}
-		//Change the speed
-		if (Input.GetKeyDown(KeyCode.UpArrow)) {
-			speedLevel = speedLevel + 1;
-			//catch the exception
-			if (speedLevel < 0) {
-				speedLevel = 0;
-			} else if (speedLevel > 3) {
-				speedLevel = 3; 
-			}
-			actorMovement ();
-		} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
-			speedLevel = speedLevel - 1;
-			if (speedLevel < 0) {
-				speedLevel = 0;
-			} else if (speedLevel > 3) {
-				speedLevel = 3; 
-			}
-			actorMovement ();
-		}
+
 			
 		//detect multiple click
 		if (Input.GetMouseButtonDown (0)) {
