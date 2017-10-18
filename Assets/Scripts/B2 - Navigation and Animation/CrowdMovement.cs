@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -21,7 +22,11 @@ public class CrowdMovement : MonoBehaviour {
         anim = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         matRender = GetComponent<Renderer>();
-        target = GameObject.Find("car_3");
+        if (String.Compare(name, "Lily") == 0) {
+            target = GameObject.Find("transport_plane_orange");
+        } else {
+            target = GameObject.Find("car_3");
+        }
     }
 
     // Update is called once per frame
@@ -38,14 +43,27 @@ public class CrowdMovement : MonoBehaviour {
         navMeshAgent.updatePosition = true;
         navMeshAgent.updateRotation = true;
         navMeshAgent.nextPosition = transform.position;
-        if (Vector3.Distance(transform.position, navMeshAgent.destination) < 1.0f)
-        {
-            if (director.beginBrakes != true)
+        if (String.Compare(name, "Lily") == 0) {
+            if (Vector3.Distance(transform.position, navMeshAgent.destination) < 3.5f)
             {
-                navMeshAgent.Stop();
-                director.beginBrakes = true;
-                director.stoppedAgents = new Hashtable();
-                director.stoppedAgents.Add(gameObject.name, gameObject);
+                if (director.beginBrakes != true)
+                {
+                    navMeshAgent.Stop();
+                    director.beginBrakes = true;
+                    director.stoppedAgents = new Hashtable();
+                    director.stoppedAgents.Add(gameObject.name, gameObject);
+                }
+            }
+        } else {
+            if (Vector3.Distance(transform.position, navMeshAgent.destination) < 1.0f)
+            {
+                if (director.beginBrakes != true)
+                {
+                    navMeshAgent.Stop();
+                    director.beginBrakes = true;
+                    director.stoppedAgents = new Hashtable();
+                    director.stoppedAgents.Add(gameObject.name, gameObject);
+                }
             }
         }
     }
