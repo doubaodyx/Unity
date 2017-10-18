@@ -16,6 +16,22 @@ public class lilyController : MonoBehaviour {
 	void Start () {
 		anim = GetComponent<Animator>();
 	}
+
+	void actorMovement(){
+		if (speedLevel == 0) {
+			anim.SetBool ("isWalking", false);
+			anim.SetBool ("isStanding", true);
+			anim.SetBool ("isRunning", false);
+		} else if (speedLevel == 1) {
+			anim.SetBool ("isWalking", true);
+			anim.SetBool ("isStanding", false);
+			anim.SetBool ("isRunning", false);
+		} else if (speedLevel == 2) {
+			anim.SetBool ("isWalking", false);
+			anim.SetBool ("isStanding", false);
+			anim.SetBool ("isRunning", true);
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,25 +44,29 @@ public class lilyController : MonoBehaviour {
 		}
 		//move forward
 		else if (Input.GetKeyDown(KeyCode.I)) {
-			if (speedLevel == 0) {
+			if (speedLevel <= 0) {
 				speedLevel = speedLevel + 1;
 				anim.SetBool ("isWalking", true);
-			} else if (speedLevel == 1) {
-				anim.SetBool ("isWalking", true);
-			} else if (speedLevel == 2) {
+				anim.SetBool ("isStanding", false);
+				anim.SetBool ("isRunning", false);
+			} else if (speedLevel >= 1) {
+				anim.SetBool ("isWalking", false);
+				anim.SetBool ("isStanding", false);
 				anim.SetBool ("isRunning", true);
-			}
+			} 
 		}
 		//move backward
 		else if (Input.GetKeyDown(KeyCode.K)) {
-			if (speedLevel == 0) {
+			if (speedLevel <= 0) {
 				speedLevel = speedLevel + 1;
 				anim.SetBool ("isWalking", true);
-			} else if (speedLevel == 1) {
-				anim.SetBool ("isWalking", true);
-			} else if (speedLevel == 2) {
+				anim.SetBool ("isStanding", false);
+				anim.SetBool ("isRunning", false);
+			} else if (speedLevel >= 1) {
+				anim.SetBool ("isWalking", false);
+				anim.SetBool ("isStanding", false);
 				anim.SetBool ("isRunning", true);
-			}
+			} 
 		} 
 		//turn left
 		else if (Input.GetKeyDown(KeyCode.J)) {
@@ -57,7 +77,7 @@ public class lilyController : MonoBehaviour {
 			anim.SetTrigger ("isTurnRight");
 		}
 		//Change the speed
-		if (Input.GetKeyDown(KeyCode.KeypadPlus)) {
+		if (Input.GetKeyDown(KeyCode.UpArrow)) {
 			speedLevel = speedLevel + 1;
 			//catch the exception
 			if (speedLevel < 0) {
@@ -65,13 +85,15 @@ public class lilyController : MonoBehaviour {
 			} else if (speedLevel > 3) {
 				speedLevel = 3; 
 			}
-		} else if (Input.GetKeyDown(KeyCode.KeypadMinus)) {
+			actorMovement ();
+		} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
 			speedLevel = speedLevel - 1;
 			if (speedLevel < 0) {
 				speedLevel = 0;
 			} else if (speedLevel > 3) {
 				speedLevel = 3; 
 			}
+			actorMovement ();
 		}
 			
 		//operate the charactor by point-n-click 
