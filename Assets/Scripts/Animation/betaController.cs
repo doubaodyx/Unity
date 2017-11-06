@@ -47,11 +47,12 @@ public class betaController : MonoBehaviour {
 		//move forward
 		else if (Input.GetKeyDown(KeyCode.I)) {
 			if (speedLevel <= 0) {
-				speedLevel = speedLevel + 1;
+				speedLevel = 1;
 				anim.SetBool ("isWalking", true);
 				anim.SetBool ("isStanding", false);
 				anim.SetBool ("isRunning", false);
 			} else if (speedLevel >= 1) {
+				speedLevel = 2;
 				anim.SetBool ("isWalking", false);
 				anim.SetBool ("isStanding", false);
 				anim.SetBool ("isRunning", true);
@@ -59,15 +60,16 @@ public class betaController : MonoBehaviour {
 		}
 		//move backward
 		else if (Input.GetKeyDown(KeyCode.K)) {
-			if (speedLevel <= 0) {
-				speedLevel = speedLevel + 1;
+			if (speedLevel >= 2) {
+				speedLevel = 1;
 				anim.SetBool ("isWalking", true);
 				anim.SetBool ("isStanding", false);
 				anim.SetBool ("isRunning", false);
 			} else if (speedLevel >= 1) {
+				speedLevel = 0;
 				anim.SetBool ("isWalking", false);
-				anim.SetBool ("isStanding", false);
-				anim.SetBool ("isRunning", true);
+				anim.SetBool ("isStanding", true);
+				anim.SetBool ("isRunning", false);
 			} 
 		} 
 		//turn left
@@ -84,8 +86,8 @@ public class betaController : MonoBehaviour {
 			//catch the exception
 			if (speedLevel < 0) {
 				speedLevel = 0;
-			} else if (speedLevel > 3) {
-				speedLevel = 3; 
+			} else if (speedLevel > 2) {
+				speedLevel = 2; 
 			}
 			actorMovement ();
 		} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
