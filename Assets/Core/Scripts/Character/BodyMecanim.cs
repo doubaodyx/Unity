@@ -392,6 +392,9 @@ public class BodyMecanim : MonoBehaviour
         case "DUCK":
             this.animator.SetBool("B_Duck", isActive);
             break;
+		case "Standing Melee Attack Horizontal":
+			this.animator.SetBool ("B_Killing", isActive);
+			break;
 		}
 	}
 
@@ -421,6 +424,7 @@ public class BodyMecanim : MonoBehaviour
 
         this.animator.SetBool("FaceAnimation", false);
         this.animator.SetBool("HandAnimation", false);
+		this.animator.SetBool("B_Killing", false);
     }
     #endregion
 
