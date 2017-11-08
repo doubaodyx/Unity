@@ -7,8 +7,10 @@ public class ConversationBehaviorTree: MonoBehaviour
 {
     public Transform wander1;
     public Transform wander2;
+    public Transform wander3;
     public GameObject participant;
     public GameObject participant2;
+    public GameObject participant3;
 
     private BehaviorAgent behaviorAgent;
     // Use this for initialization
@@ -25,14 +27,16 @@ public class ConversationBehaviorTree: MonoBehaviour
 
     }
 
-    protected Node ST_ApproachAndWait(Transform target, Transform target2)
+    protected Node ST_ApproachAndWait(Transform target, Transform target2, Transform target3)
     {
         Val<Vector3> position = Val.V(() => target.position);
         Val<Vector3> position2 = Val.V(() => target2.position);
-        return new Sequence(new SequenceParallel(participant.GetComponent<BehaviorMecanim>().Node_GoTo(position), participant2.GetComponent<BehaviorMecanim>().Node_GoTo(position2)), 
+        Val<Vector3> position3 = Val.V(() => target3.position);
+        return new Sequence(new SequenceParallel(participant.GetComponent<BehaviorMecanim>().Node_GoTo(position), participant2.GetComponent<BehaviorMecanim>().Node_GoTo(position2), participant3.GetComponent<BehaviorMecanim>().Node_GoTo(position3)), 
                             new SequenceParallel(participant.GetComponent<BehaviorMecanim>().Node_OrientTowards(participant2.transform.position), 
                                                  participant2.GetComponent<BehaviorMecanim>().Node_OrientTowards(participant.transform.position)),
-                            participant.GetComponent<BehaviorMecanim>().ST_PlayFaceGesture("ROAR", 2000), participant2.GetComponent<BehaviorMecanim>().ST_PlayFaceGesture("SAD", 2000)
+                            participant.GetComponent<BehaviorMecanim>().ST_PlayHandGesture("BASH", 2000), new SequenceParallel(participant2.GetComponent<BehaviorMecanim>().ST_PlayHandGesture("BASH", 2000),
+                                                                                                                               participant3.GetComponent<BehaviorMecanim>().ST_PlayHandGesture("CHEER", 2000))
                             );
     }
 
@@ -40,7 +44,7 @@ public class ConversationBehaviorTree: MonoBehaviour
     {
         Node roaming = new DecoratorLoop(
                         new SequenceShuffle(
-                        this.ST_ApproachAndWait(this.wander1, this.wander2)));
+                        this.ST_ApproachAndWait(this.wander1, this.wander2, this.wander3)));
         return roaming;
     }
 }
